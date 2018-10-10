@@ -51,6 +51,8 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
     // Interval requests used by the monitor
     private AtomicInteger intervalRequests = new AtomicInteger(0);
 
+    private AtomicInteger requestCount = new AtomicInteger(0);
+
     private final int id;
     private final T benchmarkModule;
     protected final Connection conn;
@@ -147,7 +149,8 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
     }
 
     public final int getRequests() {
-        return latencies.size();
+        // return latencies.size();
+        return requestCount.get();
     }
 
     public final int getAndResetIntervalRequests() {
@@ -331,6 +334,7 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
                     // after the timer went off.
                     if (preState == State.MEASURE && type != null && this.wrkldState.getCurrentPhase().id == phase.id) {
                         // latencies.addLatency(type.getId(), start, end, this.id, phase.id);
+                        requestCount.incrementAndGet();
                         intervalRequests.incrementAndGet();
                     }
                     if (phase.isLatencyRun())
