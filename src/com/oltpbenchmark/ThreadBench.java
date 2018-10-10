@@ -510,7 +510,7 @@ public class ThreadBench implements Thread.UncaughtExceptionHandler {
             // }
             // DistributionStatistics stats = DistributionStatistics.computeStatistics(latencies);
 
-            // Results results = new Results(measureEnd - start, requests, stats, samples);
+            Results results = new Results(measureEnd - start, requests, null, samples);
 
             // Compute transaction histogram
             // Set<TransactionType> txnTypes = new HashSet<TransactionType>();
@@ -540,8 +540,7 @@ public class ThreadBench implements Thread.UncaughtExceptionHandler {
             //     } // FOR
             // } // FOR
 
-            // return (results);
-            return null;
+            return (results);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
