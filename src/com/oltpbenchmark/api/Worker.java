@@ -215,7 +215,7 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
         t.setName(this.toString());
 
         // In case of reuse reset the measurements
-        latencies = new LatencyRecord(wrkldState.getTestStartNs());
+        // latencies = new LatencyRecord(wrkldState.getTestStartNs());
 
         // Invoke the initialize callback
         try {
@@ -289,7 +289,7 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
             // increase latency (queue delay) but we do this anyway since it is
             // useful sometimes
 
-            long start = pieceOfWork.getStartTime();
+            // long start = pieceOfWork.getStartTime();
 
             TransactionType type = invalidTT;
             try {
@@ -319,7 +319,7 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
 
             // PART 4: Record results
 
-            long end = System.nanoTime();
+            // long end = System.nanoTime();
             postState = wrkldState.getGlobalState();
 
             switch (postState) {
@@ -330,7 +330,7 @@ public abstract class Worker<T extends BenchmarkModule> implements Runnable {
                     // that either started during the warmup phase or ended
                     // after the timer went off.
                     if (preState == State.MEASURE && type != null && this.wrkldState.getCurrentPhase().id == phase.id) {
-                        latencies.addLatency(type.getId(), start, end, this.id, phase.id);
+                        // latencies.addLatency(type.getId(), start, end, this.id, phase.id);
                         intervalRequests.incrementAndGet();
                     }
                     if (phase.isLatencyRun())

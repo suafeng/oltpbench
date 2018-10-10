@@ -576,10 +576,10 @@ public class DBWorkload {
                 LOG.error("Unexpected error when running benchmarks.", ex);
                 System.exit(1);
             }
-            assert(r != null);
+            // assert(r != null);
 
             // WRITE OUTPUT
-            writeOutputs(r, activeTXTypes, argsLine, xmlConfig);
+            // writeOutputs(r, activeTXTypes, argsLine, xmlConfig);
             
             // WRITE HISTOGRAMS
             if (argsLine.hasOption("histograms")) {

@@ -496,51 +496,52 @@ public class ThreadBench implements Thread.UncaughtExceptionHandler {
 
             // Combine all the latencies together in the most disgusting way
             // possible: sorting!
-            for (Worker<?> w : workers) {
-                for (LatencyRecord.Sample sample : w.getLatencyRecords()) {
-                    samples.add(sample);
-                }
-            }
-            Collections.sort(samples);
+            // for (Worker<?> w : workers) {
+            //     for (LatencyRecord.Sample sample : w.getLatencyRecords()) {
+            //         samples.add(sample);
+            //     }
+            // }
+            // Collections.sort(samples);
 
             // Compute stats on all the latencies
-            int[] latencies = new int[samples.size()];
-            for (int i = 0; i < samples.size(); ++i) {
-                latencies[i] = samples.get(i).latencyUs;
-            }
-            DistributionStatistics stats = DistributionStatistics.computeStatistics(latencies);
+            // int[] latencies = new int[samples.size()];
+            // for (int i = 0; i < samples.size(); ++i) {
+            //     latencies[i] = samples.get(i).latencyUs;
+            // }
+            // DistributionStatistics stats = DistributionStatistics.computeStatistics(latencies);
 
-            Results results = new Results(measureEnd - start, requests, stats, samples);
+            // Results results = new Results(measureEnd - start, requests, stats, samples);
 
             // Compute transaction histogram
-            Set<TransactionType> txnTypes = new HashSet<TransactionType>();
-            for (WorkloadConfiguration workConf : workConfs) {
-                txnTypes.addAll(workConf.getTransTypes());
-            }
-            txnTypes.remove(TransactionType.INVALID);
+            // Set<TransactionType> txnTypes = new HashSet<TransactionType>();
+            // for (WorkloadConfiguration workConf : workConfs) {
+            //     txnTypes.addAll(workConf.getTransTypes());
+            // }
+            // txnTypes.remove(TransactionType.INVALID);
 
-            results.txnSuccess.putAll(txnTypes, 0);
-            results.txnRetry.putAll(txnTypes, 0);
-            results.txnAbort.putAll(txnTypes, 0);
-            results.txnErrors.putAll(txnTypes, 0);
+            // results.txnSuccess.putAll(txnTypes, 0);
+            // results.txnRetry.putAll(txnTypes, 0);
+            // results.txnAbort.putAll(txnTypes, 0);
+            // results.txnErrors.putAll(txnTypes, 0);
 
-            for (Worker<?> w : workers) {
-                results.txnSuccess.putHistogram(w.getTransactionSuccessHistogram());
-                results.txnRetry.putHistogram(w.getTransactionRetryHistogram());
-                results.txnAbort.putHistogram(w.getTransactionAbortHistogram());
-                results.txnErrors.putHistogram(w.getTransactionErrorHistogram());
+            // for (Worker<?> w : workers) {
+            //     results.txnSuccess.putHistogram(w.getTransactionSuccessHistogram());
+            //     results.txnRetry.putHistogram(w.getTransactionRetryHistogram());
+            //     results.txnAbort.putHistogram(w.getTransactionAbortHistogram());
+            //     results.txnErrors.putHistogram(w.getTransactionErrorHistogram());
 
-                for (Entry<TransactionType, Histogram<String>> e : w.getTransactionAbortMessageHistogram().entrySet()) {
-                    Histogram<String> h = results.txnAbortMessages.get(e.getKey());
-                    if (h == null) {
-                        h = new Histogram<String>(true);
-                        results.txnAbortMessages.put(e.getKey(), h);
-                    }
-                    h.putHistogram(e.getValue());
-                } // FOR
-            } // FOR
+            //     for (Entry<TransactionType, Histogram<String>> e : w.getTransactionAbortMessageHistogram().entrySet()) {
+            //         Histogram<String> h = results.txnAbortMessages.get(e.getKey());
+            //         if (h == null) {
+            //             h = new Histogram<String>(true);
+            //             results.txnAbortMessages.put(e.getKey(), h);
+            //         }
+            //         h.putHistogram(e.getValue());
+            //     } // FOR
+            // } // FOR
 
-            return (results);
+            // return (results);
+            return null;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
